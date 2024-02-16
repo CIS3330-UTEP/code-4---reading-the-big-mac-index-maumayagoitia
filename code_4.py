@@ -5,7 +5,8 @@ df = pd.read_csv(big_mac_file)
 
 def get_big_mac_price_by_year(year,country_code):
     query = f"year == {year} and iso_a3 == '{country_code}'"
-    prices = df.query(query)['dollar_price']
+    result = df.query(query)['dollar_price']
+    return result
 
 def get_big_mac_price_by_country(country_code):
     pass # Remove this line and code your function
