@@ -8,7 +8,7 @@ def get_big_mac_price_by_year(year, country_code):
     query = f"date.str.startswith('{year}') and iso_a3 == '{country_code}'"
     result = df.query(query)
     mean_price = result['dollar_price'].mean()
-    return round(mean_price, 2)
+    return round(mean_price, 2) if not pd.isna(mean_price) else None
 
 def get_big_mac_price_by_country(country_code):
     query = f"iso_a3 == '{country_code}'"
