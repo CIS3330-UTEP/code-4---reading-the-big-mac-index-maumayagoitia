@@ -1,13 +1,10 @@
-import csv
-
 import pandas as pd
 
 big_mac_file = './big-mac-full-index.csv'
 
 df = pd.read_csv(big_mac_file)
 
-print("hello")
-def get_big_mac_price_by_year(year,country_code):
+def get_big_mac_price_by_year(year, country_code):
     query = f"date.str.startswith('{year}') and iso_a3 == '{country_code}'"
     result = df.query(query)
     mean_price = result['dollar_price'].mean()
@@ -29,8 +26,8 @@ def get_the_most_expensive_big_mac_price_by_year(year):
     expensive_mac = df.iloc[expensive]
     return f"{expensive_mac['name']}({expensive_mac['iso_a3']}): ${expensive_mac['dollar_price']}"
 
-if __name__ == "__main__":
-     while True:
+if _name_ == "_main_":
+    while True:
         print("\n1. Get Big Mac price by year and country code")
         print("2. Get Big Mac price by country code")
         print("3. Get the cheapest Big Mac price by year")
@@ -40,11 +37,11 @@ if __name__ == "__main__":
 
         if choice == '1':
             year = input("Enter year: ")
-            country_code = input("Enter country code (ISO A3 format, e.g., 'USA'): ").upper()
+            country_code = input("Enter country code: ").upper()
             price = get_big_mac_price_by_year(year, country_code)
-            print(f"The mean Big Mac price in {country_code} for the year {year} is ${price}.")
+            print(f"The mean Big Mac price in {country_code} for the year {year} is {price}.")
         elif choice == '2':
-            country_code = input("Enter country code (ISO A3 format, e.g., 'USA'): ").upper()
+            country_code = input("Enter country code: ").upper()
             price = get_big_mac_price_by_country(country_code)
             print(f"The mean Big Mac price in {country_code} is ${price}.")
         elif choice == '3':
@@ -56,4 +53,4 @@ if __name__ == "__main__":
         elif choice == '5':
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice")
