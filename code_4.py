@@ -20,10 +20,14 @@ def get_big_mac_price_by_country(country_code):
     return round(mean_price, 2)
 
 def get_the_cheapest_big_mac_price_by_year(year):
-    pass # Remove this line and code your function
+    cheapest = df[df['date'].str.startswith(str(year))]['dollar_price'].idxmin()
+    cheapest_mac = df.iloc[cheapest]
+    return f"{cheapest_mac['name']}({cheapest_mac['iso_a3']}): ${cheapest_mac['dollar_price']}"
 
 def get_the_most_expensive_big_mac_price_by_year(year):
-    pass # Remove this line and code your function
+    expensive = df[df['date'].str.startswith(str(year))]['dollar_price'].idxmax()
+    expensive_mac = df.iloc[expensive]
+    return f"{expensive_mac['name']}({expensive_mac['iso_a3']}): ${expensive_mac['dollar_price']}"
 
 if __name__ == "__main__":
      while True:
