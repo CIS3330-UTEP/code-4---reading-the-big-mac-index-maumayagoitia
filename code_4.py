@@ -1,17 +1,23 @@
 import csv
+
 import pandas as pd
+
 big_mac_file = './big-mac-full-index.csv'
+
 df = pd.read_csv(big_mac_file)
+
 print("hello")
 def get_big_mac_price_by_year(year,country_code):
-    query = f"year == {year} and iso_a3 == '{country_code}'"
-    result = df.query(query)[['name', 'iso_a3', 'dollar_price']]
+    query = f"date.str.startswith('{year}') and iso_a3 == '{country_code}'"
+    result = df.query(query)
     mean_price = result['dollar_price'].mean()
     return round(mean_price, 2)
-    
 
 def get_big_mac_price_by_country(country_code):
-    pass # Remove this line and code your function
+    query = f"iso_a3 == '{country_code}'"
+    result = df.query(query)
+    mean_price = result['dollar_price'].mean()
+    return round(mean_price, 2)
 
 def get_the_cheapest_big_mac_price_by_year(year):
     pass # Remove this line and code your function
@@ -20,4 +26,30 @@ def get_the_most_expensive_big_mac_price_by_year(year):
     pass # Remove this line and code your function
 
 if __name__ == "__main__":
-    pass # Remove this line and code your user interface
+     while True:
+        print("\n1. Get Big Mac price by year and country code")
+        print("2. Get Big Mac price by country code")
+        print("3. Get the cheapest Big Mac price by year")
+        print("4. Get the most expensive Big Mac price by year")
+        print("5. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            year = input("Enter year: ")
+            country_code = input("Enter country code (ISO A3 format, e.g., 'USA'): ").upper()
+            price = get_big_mac_price_by_year(year, country_code)
+            print(f"The mean Big Mac price in {country_code} for the year {year} is ${price}.")
+        elif choice == '2':
+            country_code = input("Enter country code (ISO A3 format, e.g., 'USA'): ").upper()
+            price = get_big_mac_price_by_country(country_code)
+            print(f"The mean Big Mac price in {country_code} is ${price}.")
+        elif choice == '3':
+            year = input("Enter year: ")
+            print(get_the_cheapest_big_mac_price_by_year(year))
+        elif choice == '4':
+            year = input("Enter year: ")
+            print(get_the_most_expensive_big_mac_price_by_year(year))
+        elif choice == '5':
+            break
+        else:
+            print("Invalid choice. Please try again.")
