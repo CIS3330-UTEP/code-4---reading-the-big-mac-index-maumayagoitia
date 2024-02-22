@@ -19,14 +19,14 @@ def get_big_mac_price_by_country(country_code):
     return round(mean_price, 2)
 
 def get_the_cheapest_big_mac_price_by_year(year):
-    cheapest = df[df['date'].str.startswith(str(year))]['dollar_price'].idxmin()
-    cheapest_mac = df.iloc[cheapest]
-    return f"{cheapest_mac['name']}({cheapest_mac['iso_a3']}): ${round(cheapest_mac['dollar_price'], 2)}"
+    cheapest = df.query(f'date.str.startswith("{year}")')['dollar_price'].idxmin()
+    cheapestmac = df.loc[cheapest]
+    return f"{cheapestmac['name']}({cheapestmac['iso_a3']})'): ${round(cheapestmac['dollar_price'], 2)}"
 
 def get_the_most_expensive_big_mac_price_by_year(year):
-    expensive = df[df['date'].str.startswith(str(year))]['dollar_price'].idxmax()
-    expensive_mac = df.iloc[expensive]
-    return f"{expensive_mac['name']}({expensive_mac['iso_a3']}): ${round(expensive_mac['dollar_price'], 2) }"
+    expensive = df.query(f'date.str.startswith("{year}")')['dollar_price'].idxmax()
+    expensivemac = df.loc[expensive]
+    return f"{expensivemac['name']}({expensivemac['iso_a3']}): ${round(expensivemac['dollar_price'], 2) }"
 
 if __name__ == "__main__":
     while True:
@@ -41,7 +41,7 @@ if __name__ == "__main__":
             year = input("Enter year: ")
             country_code = input("Enter country code: ").upper()
             price = get_big_mac_price_by_year(year, country_code)
-            print(f"The mean Big Mac price in {country_code} for the year {year} is {price}.")
+            print(f"The mean Big Mac price in {country_code} for the year {year} is {country_code}.")
         elif choice == '2':
             country_code = input("Enter country code: ").upper()
             price = get_big_mac_price_by_country(country_code)
